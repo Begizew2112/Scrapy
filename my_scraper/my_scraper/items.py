@@ -8,3 +8,6 @@ class MyScraperItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
+#facet-main > product-list > div
+#facet-main > product-list > div > product-item:nth-child(1)
+#facet-main > page-pagination > nav > a:nth-child(4)
