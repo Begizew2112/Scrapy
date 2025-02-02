@@ -6,7 +6,7 @@
 
 from itemadapter import ItemAdapter
 
-class BookscraperPipeline:
+class MyScraperPipeline:
 
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
@@ -16,22 +16,32 @@ class BookscraperPipeline:
         for field_name in field_names:
             if field_name != 'description':
                 value = adapter.get(field_name)
-                adapter[field_name] = value.strip()
+                
+                # If value is a tuple or list, extract the first element
+                if isinstance(value, (list, tuple)):
+                    value = value[0] if value else ''
+                
+                adapter[field_name] = value.strip() if value else ''
 
-        ## Category & Product Type --> switch to lowercase
+        # Category & Product Type --> switch to lowercase
         lowercase_keys = ['category', 'product_type']
         for lowercase_key in lowercase_keys:
             value = adapter.get(lowercase_key)
             adapter[lowercase_key] = value.lower()
 
-        ## Price --> convert to float
+        # Price --> convert to float
         price_keys = ['price', 'price_excl_tax', 'price_incl_tax', 'tax']
         for price_key in price_keys:
-            value = adapter.get(price_key)
-            value = value.replace('£', '')
-            adapter[price_key] = float(value)
+            value = adapter.get(price_key)    
+            # Ensure value is a string (extract from tuple/list if needed)
+            if isinstance(value, (list, tuple)):
+                value = value[0] if value else '' 
+            print(f"Price Key: {price_key}, Value: {value}")  # Debugging
 
-        ## Availability --> extract number of books in stock
+            if value:  # Check if value is not empty
+                value = value.replace('£', '').strip()
+                adapter[price_key] = float(value) if value else 0.0
+
         availability_string = adapter.get('availability')
         split_string_array = availability_string.split('(')
         if len(split_string_array) < 2:
