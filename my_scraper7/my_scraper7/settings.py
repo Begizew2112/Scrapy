@@ -62,10 +62,26 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+# ITEM_PIPELINES = {
+#   "my_scraper7.pipelines.MyScraperPipeline": 300,
+# }
+# settings.py
+
 ITEM_PIPELINES = {
-  "my_scraper6.pipelines.MyScraperPipeline": 300,
+    'my_scraper7.pipelines.MyScraperPipeline': 200,  # First, clean and process the data
+    'my_scraper7.pipelines.SaveToPostgresPipeline': 300,  # Then, save it to the database
 }
 
+
+# settings.py 
+
+FEEDS = {
+    'data.csv': {'format': 'csv', 'overwrite': True}
+}
+
+# FEEDS = {
+#     'data.jsonl': {'format': 'jsonlines'}
+# }
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
