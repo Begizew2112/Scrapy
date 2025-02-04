@@ -5,9 +5,8 @@ class BookspiderSpider(scrapy.Spider):
     name = 'bookspider'
     allowed_domains = ['books.toscrape.com']
     start_urls = ['https://books.toscrape.com/']
-        
+
     def parse(self, response):
-        response.encoding = 'utf-8'
         books = response.css('article.product_pod')
         for book in books:
             relative_url = book.css('h3 a ::attr(href)').get()
