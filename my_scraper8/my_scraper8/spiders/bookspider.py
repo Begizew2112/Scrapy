@@ -1,5 +1,6 @@
 import scrapy
 from my_scraper8.items import BookItem  
+import random
 
 class BookspiderSpider(scrapy.Spider):
     name = 'bookspider'
@@ -10,9 +11,12 @@ class BookspiderSpider(scrapy.Spider):
     # 'FEEDS': { 'book_data.csv': { 'format': 'csv',}}
     # }
     
-    # custom_settings = {
-    #     'FEEDS': { 'data.jsonl': { 'format': 'jsonlines',}}
-    #     }
+    custom_settings = {
+        'FEEDS': {
+            'booksdata.json': {'format': 'json', 'overwrite': True},
+        }
+    }
+
 
     def parse(self, response):
         books = response.css('article.product_pod')
