@@ -12,12 +12,38 @@ BOT_NAME = "my_scraper8"
 SPIDER_MODULES = ["my_scraper8.spiders"]
 NEWSPIDER_MODULE = "my_scraper8.spiders"
 
+# FEEDS = {
+#     'data.csv': {'format': 'csv', 'overwrite': True},
+# }
+
+SCRAPEOPS_API_KEY = '37146860-a4c5-4316-b3dd-92353a4d71b3' # signup at https://scrapeops.io
+SCRAPEOPS_FAKE_USER_AGENT_ENDPOINT = 'https://headers.scrapeops.io/v1/user-agents'
+SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
+SCRAPEOPS_NUM_RESULTS = 5
+
+# Obey robots.txt rules
+ROBOTSTXT_OBEY = False
+
+
+DOWNLOADER_MIDDLEWARES = {
+    'my_scraper8.middlewares.ScrapeOpsFakeUserAgentMiddleware': 400,
+}
+
+
+ITEM_PIPELINES = {
+    'my_scraper8.pipelines.MyScraperPipeline': 200,  # First, clean and process the data
+    #'my_scraper7.pipelines.SaveToPostgresPipeline': 300,  # Then, save it to the database
+}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "my_scraper (+http://www.yourdomain.com)"
+## settings.py
+#change user agenet
+#USER_AGENT = 'Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
+#37146860-a4c5-4316-b3dd-92353a4d71b3"
 
-# Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+#http://headers.scrapeops.io/v1/user-agents?api_key='37146860-a4c5-4316-b3dd-92353a4d71b3'
+
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -65,20 +91,6 @@ ROBOTSTXT_OBEY = True
 # ITEM_PIPELINES = {
 #   "my_scraper7.pipelines.MyScraperPipeline": 300,
 # }
-# settings.py
-
-ITEM_PIPELINES = {
-    'my_scraper8.pipelines.MyScraperPipeline': 200,  # First, clean and process the data
-    #'my_scraper7.pipelines.SaveToPostgresPipeline': 300,  # Then, save it to the database
-}
-
-
-# settings.py 
-
-FEEDS = {
-    'data.csv': {'format': 'csv', 'overwrite': True}
-}
-
 # FEEDS = {
 #     'data.jsonl': {'format': 'jsonlines'}
 # }
@@ -106,3 +118,4 @@ FEEDS = {
 # Set settings whose default value is deprecated to a future-proof value
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
