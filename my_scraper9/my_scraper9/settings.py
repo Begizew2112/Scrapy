@@ -35,6 +35,15 @@ ITEM_PIPELINES = {
     #'my_scraper7.pipelines.SaveToPostgresPipeline': 300,  # Then, save it to the database
 }
 
+
+SCRAPEOPS_API_KEY = 'da27e0ae-d056-45d9-af05-9a255d5f66c5'
+SCRAPEOPS_PROXY_ENABLED = True
+
+DOWNLOADER_MIDDLEWARES = {
+    'scrapeops_scrapy_proxy_sdk.scrapeops_scrapy_proxy_sdk.ScrapeOpsScrapyProxySdk': 725,
+}
+
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "my_scraper (+http://www.yourdomain.com)"
 ## settings.py

@@ -2,9 +2,19 @@ import scrapy
 from my_scraper9.items import BookItem  
 import random
 
+from urllib.parse import urlencode
+# ## booksspider.py
+
+API_KEY = 'da27e0ae-d056-45d9-af05-9a255d5f66c5'
+
+def get_proxy_url(url):
+    payload = {'api_key': API_KEY, 'url': url}
+    proxy_url = 'https://proxy.scrapeops.io/v1/?' + urlencode(payload)
+    return proxy_url
+
 class BookspiderSpider(scrapy.Spider):
     name = 'bookspider'
-    allowed_domains = ['books.toscrape.com']
+    allowed_domains = ['books.toscrape.com','proxy.scrapeops.io/v1/?']
     start_urls = ['https://books.toscrape.com/']
 
     # custom_settings = {
