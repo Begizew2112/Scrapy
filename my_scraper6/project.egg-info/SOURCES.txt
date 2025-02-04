@@ -1,0 +1,13 @@
+setup.py
+my_scraper6/__init__.py
+my_scraper6/items.py
+my_scraper6/middlewares.py
+my_scraper6/pipelines.py
+my_scraper6/settings.py
+my_scraper6/spiders/__init__.py
+my_scraper6/spiders/bookspider.py
+project.egg-info/PKG-INFO
+project.egg-info/SOURCES.txt
+project.egg-info/dependency_links.txt
+project.egg-info/entry_points.txt
+project.egg-info/top_level.txt
